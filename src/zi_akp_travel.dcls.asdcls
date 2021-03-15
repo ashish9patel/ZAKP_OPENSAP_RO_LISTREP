@@ -1,0 +1,16 @@
+@EndUserText.label: 'Access Control for ZI_AKP_TRAVEL'
+@MappingRole: true
+define role ZI_AKP_TRAVEL {
+    grant
+        select
+            on
+                ZI_AKP_TRAVEL
+                    where
+                        CurrencyCode = 'EUR'
+                        and 
+                            ( TravelStatus ) = aspect pfcg_auth( ZAOTRASTAT, ZAFTRASTAT, ACTVT = '03' )
+                        or 
+                            true //work around to see all records as in the cloud we don't have access to role change and assignments
+                        ;
+                        
+}
